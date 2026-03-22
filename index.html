@@ -1,0 +1,2789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muhammad Noman Tabassum — Applied Mathematician & AI Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@700;800;900&family=Roboto+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg2: #f8f9fa;
+      --surface: #ffffff;
+      --surface2: #f1f3f5;
+      --border: rgba(0, 0, 0, 0.08);
+      --border2: rgba(0, 0, 0, 0.15);
+      --accent: #2563eb;
+      --accent2: #7c3aed;
+      --accent3: #f59e0b;
+      --text: #111827;
+      --text2: #4b5563;
+      --text3: #6b7280;
+      --glow: 0 0 40px rgba(37, 99, 235, 0.15);
+      --glow2: 0 0 60px rgba(124, 58, 237, 0.12);
+      --nav-bg: rgba(255, 255, 255, 0.85);
+    }
+
+    [data-theme='dark'] {
+      --bg: #0a0a0f;
+      --bg2: #13131f;
+      --surface: #1a1a24;
+      --surface2: #242430;
+      --border: rgba(255, 255, 255, 0.08);
+      --border2: rgba(255, 255, 255, 0.15);
+      --text: #f9fafb;
+      --text2: #d1d5db;
+      --text3: #9ca3af;
+      --nav-bg: rgba(10, 10, 15, 0.85);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      transition: background-color 0.4s ease, color 0.4s ease;
+      width: 100vw;
+      max-width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.015em;
+      line-height: 1.75;
+      overflow-x: hidden;
+
+    }
+
+
+    /* Layout */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 6%;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s, border-bottom 0.3s;
+    }
+
+    nav.scrolled {
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text2);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 8px 20px;
+      border: 1px solid var(--accent);
+      color: var(--accent) !important;
+      border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: rgba(37, 99, 235, 0.1) !important;
+    }
+
+    /* Hero */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      z-index: 1;
+      padding: 120px 0 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 6vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+
+    .hero-name .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-name .line span {
+      display: block;
+      transform: translateY(100%);
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-name .line:nth-child(1) span {
+      animation-delay: 0.1s;
+    }
+
+    .hero-name .line:nth-child(2) span {
+      animation-delay: 0.2s;
+    }
+
+    .hero-name .line:nth-child(3) span {
+      animation-delay: 0.3s;
+      color: var(--accent);
+    }
+
+    @keyframes slideUp {
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text2);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .btn-primary {
+      padding: 14px 32px;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-outline {
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text2);
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    /* Hero Stats */
+    .hero-stats {
+      margin-top: 56px;
+      display: flex;
+      gap: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .stat-item {}
+
+    .stat-num {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-num span {
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text3);
+      margin-top: 4px;
+      font-family: 'Roboto Mono', monospace;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .hero-card-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .thesis-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .thesis-box h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .thesis-box p {
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .metric-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .metric-card .val {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .metric-card .lbl {
+      font-size: 0.7rem;
+      color: var(--text3);
+      font-family: 'Roboto Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-card:nth-child(1) .val {
+      color: var(--accent);
+    }
+
+    .metric-card:nth-child(2) .val {
+      color: var(--accent3);
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      border-radius: 100px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .badge.purple {
+      background: rgba(124, 58, 237, 0.08);
+      border-color: rgba(124, 58, 237, 0.2);
+      color: #a78bfa;
+    }
+
+    .badge.amber {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.2);
+      color: var(--accent3);
+    }
+
+    /* Sections */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 120px 0;
+    }
+
+    .section-header {
+      margin-bottom: 72px;
+    }
+
+    .section-num {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-num::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+
+    .section-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .section-sub {
+      margin-top: 16px;
+      color: var(--text2);
+      font-size: 1.05rem;
+      max-width: 560px;
+    }
+
+    /* About */
+    #about {
+      border-top: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text2);
+      line-height: 1.8;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .info-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+
+    .info-list .lbl {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      min-width: 80px;
+    }
+
+    .info-list .val {
+      color: var(--text2);
+    }
+
+    .info-list .val a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .interest-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .interest-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .interest-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .interest-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .interest-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .interest-sub {
+      font-size: 0.75rem;
+      color: var(--text3);
+      margin-top: 2px;
+    }
+
+    /* Education Timeline */
+    #education {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 56px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -40px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      background: var(--bg2);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+    }
+
+    .timeline-dot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .timeline-period {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .timeline-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.3s;
+    }
+
+    .timeline-card:hover {
+      border-color: var(--border2);
+    }
+
+    .timeline-inst {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .inst-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .inst-info {}
+
+    .inst-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .inst-loc {
+      font-size: 0.8rem;
+      color: var(--text3);
+      margin-top: 2px;
+    }
+
+    .degree-title {
+      font-size: 0.9rem;
+      color: var(--text2);
+      margin-bottom: 8px;
+    }
+
+    .courses-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .course-tag {
+      padding: 3px 9px;
+      background: var(--surface2);
+      border-radius: 4px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text2);
+      letter-spacing: 0.03em;
+    }
+
+    .award-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: var(--accent3);
+      margin-top: 10px;
+    }
+
+    /* Experience */
+    #experience {
+      border-top: 1px solid var(--border);
+    }
+
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s, border-color 0.3s;
+    }
+
+    .exp-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .exp-card:hover {
+      border-color: var(--border2);
+    }
+
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .exp-card:hover::before {
+      opacity: 1;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .exp-company {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--text);
+    }
+
+    .exp-role {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .exp-period {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text3);
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+    }
+
+    .exp-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .exp-points li {
+      display: flex;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text2);
+      line-height: 1.75;
+    }
+
+    .exp-points li::before {
+      content: '→';
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .highlight-box {
+      background: var(--bg);
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .highlight-item {}
+
+    .highlight-val {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .highlight-desc {
+      font-size: 0.78rem;
+      color: var(--text3);
+      font-family: 'Roboto Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    /* Projects */
+    #projects {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.3s, transform 0.3s;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-4px);
+    }
+
+    .project-card.featured {
+      grid-column: span 2;
+      border-color: rgba(37, 99, 235, 0.2);
+      background: linear-gradient(135deg, var(--surface), rgba(37, 99, 235, 0.03));
+    }
+
+    .proj-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+
+    .proj-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .proj-desc {
+      font-size: 0.875rem;
+      color: var(--text2);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .proj-tag {
+      padding: 3px 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text2);
+      letter-spacing: 0.03em;
+    }
+
+    .proj-inst {
+      font-size: 0.75rem;
+      color: var(--text3);
+      margin-top: 12px;
+      font-family: 'Roboto Mono', monospace;
+      letter-spacing: 0.03em;
+    }
+
+    /* Skills */
+    #skills {
+      border-top: 1px solid var(--border);
+    }
+
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 48px;
+    }
+
+    .skills-nav {
+      position: sticky;
+      top: 100px;
+    }
+
+    .skill-tab {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 4px;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      color: var(--text2);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .skill-tab.active {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .skill-tab.active .tab-dot {
+      background: var(--accent);
+    }
+
+    .tab-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--text3);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .skills-content {}
+
+    .skill-panel {
+      display: none;
+    }
+
+    .skill-panel.active {
+      display: block;
+    }
+
+    .skill-group {
+      margin-bottom: 32px;
+    }
+
+    .skill-group-title {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text2);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-item:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .skill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .skill-dot.purple {
+      background: #a78bfa;
+    }
+
+    .skill-dot.amber {
+      background: var(--accent3);
+    }
+
+    /* Awards */
+    #awards {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .award-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color 0.3s, transform 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
+    }
+
+    .award-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .award-card:hover {
+      border-color: rgba(245, 158, 11, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .award-medal {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .award-medal.gold {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .award-medal.blue {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .award-medal.green {
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    .award-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .award-org {
+      font-size: 0.8rem;
+      color: var(--text2);
+      margin-bottom: 8px;
+    }
+
+    .award-date {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* References */
+    #references {
+      border-top: 1px solid var(--border);
+    }
+
+    .refs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .ref-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
+    }
+
+    .ref-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ref-card:hover {
+      border-color: var(--border2);
+    }
+
+    .ref-avatar {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .ref-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .ref-title {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .ref-org {
+      font-size: 0.78rem;
+      color: var(--text3);
+      margin-bottom: 16px;
+    }
+
+    .ref-quote {
+      font-size: 0.85rem;
+      color: var(--text2);
+      font-style: italic;
+      line-height: 1.75;
+      border-left: 2px solid var(--border);
+      padding-left: 12px;
+    }
+
+    .ref-email {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text3);
+      margin-top: 16px;
+    }
+
+    /* Contact */
+    #contact {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .contact-text h2 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .contact-text h2 span {
+      color: var(--accent);
+    }
+
+    .contact-text p {
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .contact-link-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--surface2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-link-text .ttl {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .contact-link-text .sub {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text3);
+      margin-top: 2px;
+    }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .open-badge {
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .open-badge-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 6px rgba(37, 99, 235, 0);
+      }
+    }
+
+    .open-badge h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .open-badge p {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.75;
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text3);
+    }
+
+    .footer-built {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text3);
+    }
+
+    .footer-built span {
+      color: var(--accent);
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile hamburger */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 1024px) {
+      .container {
+        padding: 0 6%;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        display: none;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .project-card.featured {
+        grid-column: span 2;
+      }
+
+      .skills-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-nav {
+        position: static;
+      }
+
+      .skill-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .refs-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 6%;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card.featured {
+        grid-column: span 1;
+      }
+
+      .awards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .refs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+    }
+
+    /* Dynamic hover effects */
+    .timeline-card:hover,
+    .exp-card:hover,
+    .project-card:hover {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+      transform: translateY(-6px);
+    }
+
+    .metric-card {
+      transition: transform 0.3s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary,
+    .btn-outline {
+      backdrop-filter: blur(10px);
+    }
+
+    img.inst-icon {
+      background: white;
+      padding: 4px;
+      object-fit: contain;
+    }
+
+    .exp-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: contain;
+      background: white;
+      padding: 4px;
+      border: 1px solid var(--border);
+    }
+
+    img.proj-icon {
+      background: white;
+      padding: 4px;
+      object-fit: contain;
+      border: 1px solid var(--border);
+    }
+
+
+    /* Ensure logo images look great on hover */
+    img.exp-logo,
+    img.inst-icon,
+    img.proj-icon {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .exp-card:hover img.exp-logo,
+    .timeline-card:hover img.inst-icon,
+    .project-card:hover img.proj-icon {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Link animated underlines */
+    .about-text a {
+      color: var(--accent);
+      text-decoration: none;
+      background-image: linear-gradient(var(--accent), var(--accent));
+      background-size: 0% 1px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      transition: background-size 0.3s ease;
+      padding-bottom: 2px;
+    }
+
+    .about-text a:hover {
+      background-size: 100% 1px;
+    }
+
+
+    /* Smooth page transitions */
+    .interest-item,
+    .badge,
+    .course-tag,
+    .proj-tag,
+    .skill-item,
+    .contact-link {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .badge:hover,
+    .course-tag:hover,
+    .proj-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .contact-link:hover .contact-link-icon {
+      background: var(--accent);
+      color: white;
+    }
+
+    .nav-logo {
+      transition: opacity 0.2s;
+    }
+
+    .nav-logo:hover {
+      opacity: 0.7;
+    }
+
+    /* Card shadow on hover */
+    .award-card:hover,
+    .ref-card:hover {
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.06);
+    }
+
+    .interest-item:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Smooth scroll indicator */
+    html {
+      scroll-padding-top: 80px;
+    }
+
+    /* Skills hint */
+    .skills-hint {
+      margin-top: 12px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+      animation: hintPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes hintPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    /* Animated border on active tab */
+    .skill-tab.active {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--accent);
+      box-shadow: 0 2px 12px rgba(37, 99, 235, 0.1);
+    }
+
+    .skill-tab:hover:not(.active) {
+      background: var(--surface2);
+    }
+
+    /* Theme Toggle */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .theme-btn:hover {
+      background: var(--surface2);
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="gradient-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="container">
+      <a href="#hero" class="nav-logo">M Noman <span>Tabassum</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <div class="nav-controls">
+        <button id="theme-toggle" aria-label="Toggle Dark Mode" class="theme-btn">
+          <svg id="moon-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+          </svg>
+          <svg id="sun-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24" style="display:none">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path
+              d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+            </path>
+          </svg>
+        </button>
+        <button class="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-label">Applied Mathematician & AI Researcher</div>
+          <h1 class="hero-name">
+            <div class="line"><span>Muhammad</span></div>
+            <div class="line"><span>Noman</span></div>
+            <div class="line"><span>Tabassum</span></div>
+          </h1>
+          <p class="hero-desc">
+            Erasmus Mundus graduate with a double master's in Applied Mathematics and Mathematical Engineering. I build <strong>surrogate models,
+              reinforcement learning controllers</strong>, and data-driven solutions at the intersection of mathematics
+            and AI — from autonomous Solutions  to FEM simulations.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              View Projects
+            </a>
+            <a href="mailto:nomantabassum38@gmail.com" class="btn-outline">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4h12v9H2V4zm0 0l6 5 6-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              Get in Touch
+            </a>
+          </div>
+
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-card-label">// Featured Work — Master's Thesis @ Volvo Group</div>
+          <div class="thesis-box">
+            <h4>Optimization of Excavation Process of Electric Wheel Loaders Using Deep Reinforcement Learning</h4>
+            <p>Surrogate-assisted RL for autonomous bucket-filling. Built high-fidelity Python surrogate of Simulink
+              simulator, trained PPO policy for closed-loop trajectory control.</p>
+          </div>
+
+          <div class="badge-row">
+            <span class="badge">Python</span>
+            <span class="badge">PPO</span>
+            <span class="badge">MATLAB</span>
+            <span class="badge purple">Deep RL</span>
+            <span class="badge purple">LSTM</span>
+            <span class="badge amber">Volvo Group</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-num">01</div>
+        <h2 class="section-title">About Me</h2>
+        <p class="section-sub">A brief introduction to who I am and what drives my research.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>I am a <strong>Mathematical Engineering graduate</strong> and driven applied mathematician with hands-on
+            experience in simulation-based optimization and AI-driven control, gained through both industrial and
+            academic research across Europe and Asia.</p>
+          <p>I completed the prestigious <strong>Erasmus Mundus RealMaths Double Degree</strong> programme, studying at
+            the University of L'Aquila (Italy) and Karlstad University (Sweden).</p>
+          <p>My master's thesis was conducted as an internship with the <strong>Volvo Group</strong>, where I developed
+            surrogate models and deployed reinforcement learning solutions for autonomous excavation. Subsequently, I
+            worked as a <strong>Research Intern at Kanazawa University, Japan</strong>, exploring surface PDEs, FEM,
+            LLMs, and Deep Learning.</p>
+          <ul class="info-list">
+            <li><span class="lbl">Location</span><span class="val">Göteborg, Sweden</span></li>
+            <li><span class="lbl">Email</span><span class="val"><a
+                  href="mailto:nomantabassum38@gmail.com">nomantabassum38@gmail.com</a></span></li>
+            <li><span class="lbl">LinkedIn</span><span class="val"><a
+                  href="https://www.linkedin.com/in/m-noman-tabassum/" target="_blank">m-noman-tabassum</a></span></li>
+            <li><span class="lbl">Status</span><span class="val" style="color:var(--accent)">● Open to PhD & Research
+                Roles</span></li>
+          </ul>
+        </div>
+        <div class="interest-grid reveal">
+          <div class="interest-item">
+            <div class="interest-icon">🧮</div>
+            <div class="interest-name">Optimization</div>
+            <div class="interest-sub">Numerical & surrogate-based</div>
+          </div>
+          <div class="interest-item">
+            <div class="interest-icon">🤖</div>
+            <div class="interest-name">Deep RL & AI</div>
+            <div class="interest-sub">Policy learning, PPO, control</div>
+          </div>
+          <div class="interest-item">
+            <div class="interest-icon">🌐</div>
+            <div class="interest-name">PDEs & FEM</div>
+            <div class="interest-sub">FreeFem++, COMSOL</div>
+          </div>
+          <div class="interest-item">
+            <div class="interest-icon">📊</div>
+            <div class="interest-name">Surrogate Modeling</div>
+            <div class="interest-sub">LSTM, data-driven dynamics</div>
+          </div>
+          <div class="interest-item">
+            <div class="interest-icon">⚡</div>
+            <div class="interest-name">HPC</div>
+            <div class="interest-sub">MPI-parallelized computing</div>
+          </div>
+          <div class="interest-item">
+            <div class="interest-icon">🔬</div>
+            <div class="interest-name">LLMs & Deep Learning</div>
+            <div class="interest-sub">Research, Kanazawa Univ.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-num">02</div>
+        <h2 class="section-title">Education</h2>
+        <p class="section-sub">A rigorous academic journey across four countries — Pakistan, Italy, Sweden, and Japan.</p>
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Jul 2025 – Aug 2025</div>
+          <div class="timeline-card">
+            <div class="timeline-inst">
+              <img src="https://www.google.com/s2/favicons?domain=kanazawa-u.ac.jp&sz=128" class="inst-icon">
+              <div class="inst-info">
+                <div class="inst-name">Kanazawa University</div>
+                <div class="inst-loc">Kanazawa, Japan</div>
+              </div>
+            </div>
+            <div class="degree-title">Research Internship — Surface PDEs, Finite Element Methods, LLMs & Deep Learning
+            </div>
+            <div class="courses-list">
+              <span class="course-tag">Surface PDEs</span>
+              <span class="course-tag">FEM</span>
+              <span class="course-tag">Deep Learning</span>
+              <span class="course-tag">LLMs</span>
+              <span class="course-tag">Reservoir Computing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Aug 2024 – May 2025</div>
+          <div class="timeline-card">
+            <div class="timeline-inst">
+              <img src="https://www.google.com/s2/favicons?domain=kau.se&sz=128" class="inst-icon">
+              <div class="inst-info">
+                <div class="inst-name">Karlstad University</div>
+                <div class="inst-loc">Karlstad, Sweden — RealMaths EMJMD (M2)</div>
+              </div>
+            </div>
+            <div class="degree-title">MSc Applied Mathematics</div>
+            <div class="degree-title" style="margin-top:8px; color: var(--text3);">Thesis: Optimization of Excavation
+              Process of Electric Wheel Loaders Using Deep Reinforcement Learning</div>
+            <div class="courses-list">
+              <span class="course-tag">PDE & FEM</span>
+              <span class="course-tag">Homogenization</span>
+              <span class="course-tag">Kinetic Theory</span>
+              <span class="course-tag">Master Thesis (VG)</span>
+            </div>
+            <div class="award-chip">🏅 Erasmus Mundus Double Degree</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Aug 2023 – Jul 2024</div>
+          <div class="timeline-card">
+            <div class="timeline-inst">
+              <img src="University_of_L'Aquila_coat_of_arms.svg" class="inst-icon">
+              <div class="inst-info">
+                <div class="inst-name">University of L'Aquila</div>
+                <div class="inst-loc">L'Aquila, Italy — RealMaths EMJMD (M1)</div>
+              </div>
+            </div>
+            <div class="degree-title">MSc Mathematical Engineering</div>
+            <div class="courses-list">
+              <span class="course-tag">Control Systems</span>
+              <span class="course-tag">Dynamical Systems</span>
+              <span class="course-tag">Bifurcation Theory</span>
+              <span class="course-tag">Numerical Linear Algebra</span>
+              <span class="course-tag">Continuum Mechanics</span>
+              <span class="course-tag">Parallel Computing</span>
+              <span class="course-tag">Numerical Methods</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">Feb 2019 – Feb 2023</div>
+          <div class="timeline-card">
+            <div class="timeline-inst">
+              <img src="https://www.google.com/s2/favicons?domain=iub.edu.pk&sz=128" class="inst-icon">
+              <div class="inst-info">
+                <div class="inst-name">The Islamia University of Bahawalpur</div>
+                <div class="inst-loc">Bahawalpur, Pakistan</div>
+              </div>
+            </div>
+            <div class="degree-title">BSc Mathematics</div>
+            <div class="courses-list">
+              <span class="course-tag">Numerical Computing</span>
+              <span class="course-tag">Optimization & Approx Theory</span>
+              <span class="course-tag">Operations Research</span>
+              <span class="course-tag">Real & Complex Analysis</span>
+              <span class="course-tag">Computer-Aided Geometric Design</span>
+              <span class="course-tag">Abstract Algebra</span>
+            </div>
+            <div class="award-chip">🏅 HEC Merit Scholarship</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-num">03</div>
+        <h2 class="section-title">Experience</h2>
+        <p class="section-sub">Real-world applications of mathematical engineering in industrial and academic settings.
+        </p>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <img src="https://www.google.com/s2/favicons?domain=volvo.com&sz=128" class="exp-logo">
+            <div>
+              <div class="exp-company">Volvo Group — Volvo Construction Equipment</div>
+              <div class="exp-role">Optimization & Simulation Intern — Master's Thesis Researcher</div>
+            </div>
+          </div>
+          <div class="exp-period">Jan 2025 – Jun 2025 · Eskilstuna, Sweden</div>
+        </div>
+        <ul class="exp-points">
+          <li>Built and validated a high-fidelity surrogate model in Python for the Simulink-based electric wheel loader
+            simulator “Idun,” enabling faster experimentation and reduced reliance on costly full-scale simulations.
+          </li>
+          <li>Integrated the surrogate with MATLAB/Simulink and Stateflow logic for closed-loop trajectory control of
+            autonomous excavation tasks.</li>
+          <li>Designed, trained, and validated a deep reinforcement learning controller using Proximal Policy
+            Optimization (PPO) for excavation process optimization across varying material types.</li>
+          <li>Contributed to advancing simulation-based autonomous excavation benchmarks supporting Volvo's long-term
+            research in intelligent construction machinery.</li>
+          <li>Collaborated with simulation engineers, delivering reproducible models, documented pipelines, and
+            performance analyses suitable for industrial deployment.</li>
+        </ul>
+
+        <div class="badge-row" style="margin-top:20px">
+          <span class="badge">Python</span>
+          <span class="badge">MATLAB/Simulink</span>
+          <span class="badge">Stateflow</span>
+          <span class="badge purple">PPO</span>
+          <span class="badge purple">Stable Baselines3</span>
+          <span class="badge purple">LSTM Surrogate</span>
+          <span class="badge amber">Volvo R&D</span>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <img src="https://www.google.com/s2/favicons?domain=kanazawa-u.ac.jp&sz=128" class="exp-logo">
+            <div>
+              <div class="exp-company">Kanazawa University</div>
+              <div class="exp-role">Research Intern — Mathematics & AI</div>
+            </div>
+          </div>
+          <div class="exp-period">Jul 2025 – Aug 2025 · Kanazawa, Japan</div>
+        </div>
+        <ul class="exp-points">
+          <li>Explored surface Partial Differential Equations and Finite Element Methods in computational mathematics
+            research.</li>
+          <li>Investigated Large Language Models (LLMs) and Deep Learning architectures for scientific applications.
+          </li>
+          <li>Worked on Reservoir Computing as part of emerging research in neuromorphic and recurrent computational
+            methods.</li>
+        </ul>
+        <div class="badge-row" style="margin-top:16px">
+          <span class="badge">Surface PDEs</span>
+          <span class="badge">FEM</span>
+          <span class="badge purple">LLMs</span>
+          <span class="badge purple">Reservoir Computing</span>
+          <span class="badge purple">Deep Learning</span>
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div style="display: flex; gap: 16px; align-items: center;">
+            <img src="https://www.google.com/s2/favicons?domain=iub.edu.pk&sz=128" class="exp-logo">
+            <div>
+              <div class="exp-company">The Islamia University of Bahawalpur</div>
+              <div class="exp-role">Teaching Assistant — Department of Mathematics</div>
+            </div>
+          </div>
+          <div class="exp-period">Jan 2022 – Feb 2023 · Pakistan</div>
+        </div>
+        <ul class="exp-points">
+          <li>Supported undergraduate-level teaching by assisting in course preparation, grading assignments, and
+            tutoring students in advanced mathematics.</li>
+          <li>Collaborated with a departmental research group on literature reviews, data collection, and preliminary
+            analysis for ongoing projects.</li>
+          <li>Contributed to creating a structured learning environment during lab sessions and tutorials.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-num">04</div>
+        <h2 class="section-title">Projects</h2>
+        <p class="section-sub">Mathematical modelling, AI, and engineering projects from my academic journey.</p>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card featured">
+          <img src="https://www.google.com/s2/favicons?domain=volvo.com&sz=128" class="proj-icon">
+          <div class="proj-title">Surrogate-Assisted Deep Reinforcement Learning for Autonomous Excavation</div>
+          <div class="proj-desc">Master's thesis at Volvo Group. Developed a data-driven LSTM surrogate model for the
+            Simulink-based Idun electric wheel loader simulator. Trained a PPO reinforcement learning agent in the
+            surrogate environment to optimize bucket-filling trajectories. Residual learning and multi-step forecasting
+            were key components of the surrogate pipeline.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">MATLAB/Simulink</span>
+            <span class="proj-tag">Stable Baselines3</span>
+            <span class="proj-tag">PPO</span>
+            <span class="proj-tag">LSTM</span>
+            <span class="proj-tag">Stateflow</span>
+            <span class="proj-tag">Surrogate Modeling</span>
+            <span class="proj-tag">Imitation Learning</span>
+          </div>
+          <div class="proj-inst">📍 Volvo Group, Eskilstuna — Karlstad University / Università degli Studi dell'Aquila ·
+            2025</div>
+        </div>
+
+        <div class="project-card">
+          <img src="https://www.google.com/s2/favicons?domain=kau.se&sz=128" class="proj-icon">
+          <div class="proj-title">CNN Architecture Optimization for Image Classification</div>
+          <div class="proj-desc">Achieved 12% accuracy gain through architectural redesign and hyperparameter tuning.
+            Reduced inference time by 22% via model pruning and quantization, enabling edge deployment of the model.
+          </div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">CNN</span>
+            <span class="proj-tag">Model Pruning</span>
+            <span class="proj-tag">Quantization</span>
+            <span class="proj-tag">Edge AI</span>
+          </div>
+          <div class="proj-inst">📍 Karlstad University · Practical Placement · Aug 2024 – Jan 2025</div>
+        </div>
+
+        <div class="project-card">
+          <img src="University_of_L'Aquila_coat_of_arms.svg" class="proj-icon">
+          <div class="proj-title">Monte Carlo Simulation of the 2D Ising Model</div>
+          <div class="proj-desc">Simulated phase transitions and thermalization dynamics using the Metropolis algorithm.
+            Analyzed ferromagnetic behavior via nearest-neighbor spin interactions under Prof. Matteo Colangeli's
+            supervision.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">Monte Carlo</span>
+            <span class="proj-tag">Metropolis Algorithm</span>
+            <span class="proj-tag">Kinetic Theory</span>
+            <span class="proj-tag">Statistical Mechanics</span>
+          </div>
+          <div class="proj-inst">📍 University of L'Aquila · Feb 2024 – Jun 2024</div>
+        </div>
+
+        <div class="project-card">
+          <img src="University_of_L'Aquila_coat_of_arms.svg" class="proj-icon">
+          <div class="proj-title">3D Block Deformation using COMSOL Multiphysics</div>
+          <div class="proj-desc">Performed structural deformation and eigenmode analysis of steel blocks using Finite
+            Element Methods in COMSOL Multiphysics. Project supervised by Dr. Ivan Gorgio in the Continuum Mechanics
+            course.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">COMSOL</span>
+            <span class="proj-tag">FEM</span>
+            <span class="proj-tag">Structural Analysis</span>
+            <span class="proj-tag">Eigenmode Analysis</span>
+            <span class="proj-tag">Continuum Mechanics</span>
+          </div>
+          <div class="proj-inst">📍 University of L'Aquila · Feb 2024 – Jun 2024</div>
+        </div>
+
+        <div class="project-card">
+          <img src="University_of_L'Aquila_coat_of_arms.svg" class="proj-icon">
+          <div class="proj-title">Parallelized Trapezoidal Rule with MPI</div>
+          <div class="proj-desc">Accelerated numerical integration via MPI-based parallelization of the trapezoidal rule
+            to efficiently estimate definite integrals on high-performance computing clusters. Demonstrated linear
+            speedup with increasing node count.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">MPI</span>
+            <span class="proj-tag">C/C++</span>
+            <span class="proj-tag">HPC</span>
+            <span class="proj-tag">Parallel Computing</span>
+            <span class="proj-tag">Numerical Integration</span>
+          </div>
+          <div class="proj-inst">📍 University of L'Aquila · Jan 2024 – Aug 2025</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-num">05</div>
+        <h2 class="section-title">Skills & Tools</h2>
+        <p class="section-sub">Technical competencies built across industry and academia.</p>
+        <p class="skills-hint">👆 Click on a category below to explore skills in detail</p>
+      </div>
+      <div class="skills-layout">
+        <div class="skills-nav">
+          <button class="skill-tab active" onclick="switchTab(event, 'programming')">
+            <div class="tab-dot"></div>Programming
+          </button>
+          <button class="skill-tab" onclick="switchTab(event, 'math')">
+            <div class="tab-dot"></div>Math & AI
+          </button>
+          <button class="skill-tab" onclick="switchTab(event, 'simulation')">
+            <div class="tab-dot"></div>Simulation & Engineering
+          </button>
+          <button class="skill-tab" onclick="switchTab(event, 'data')">
+            <div class="tab-dot"></div>Data & Visualization
+          </button>
+          <button class="skill-tab" onclick="switchTab(event, 'soft')">
+            <div class="tab-dot"></div>Soft Skills
+          </button>
+        </div>
+        <div class="skills-content">
+          <div class="skill-panel active" id="panel-programming">
+            <div class="skill-group">
+              <div class="skill-group-title">Primary Languages</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Python
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>MATLAB
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>C / MPI
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>LaTeX
+                </div>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">Python Ecosystem</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>NumPy
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Pandas
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Matplotlib
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Scikit-learn
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Stable Baselines3
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Seaborn
+                </div>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">MATLAB Suite</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>MATLAB
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>Simulink
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>Stateflow
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-panel" id="panel-math">
+            <div class="skill-group">
+              <div class="skill-group-title">Optimization & Control</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Numerical Optimization
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Model Predictive Control
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Surrogate Modeling
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Dynamical Systems
+                </div>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">Machine Learning & AI</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Deep Reinforcement Learning
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Proximal Policy Optimization
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Neural Networks (CNN, LSTM)
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Imitation Learning
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Residual Learning
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>LLMs
+                </div>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">Mathematical Foundations</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>PDEs & FEM
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>Monte Carlo Simulation
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>Stochastic Processes
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>Homogenization Theory
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>Kinetic Theory
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-panel" id="panel-simulation">
+            <div class="skill-group">
+              <div class="skill-group-title">Simulation Tools</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot"></div>MATLAB/Simulink
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>COMSOL Multiphysics
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>FreeFem++
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>High-Fidelity Simulators
+                </div>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">HPC & Parallel Computing</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>MPI Clusters
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Parallel Algorithms
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>High Performance Computing
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-panel" id="panel-data">
+            <div class="skill-group">
+              <div class="skill-group-title">Data Science</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Data Preprocessing
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Time-Series Forecasting
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Statistical Analysis
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Feature Engineering
+                </div>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">Visualization & Reporting</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Matplotlib
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Seaborn
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Technical Report Writing
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Scientific Writing
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>LaTeX Typesetting
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-panel" id="panel-soft">
+            <div class="skill-group">
+              <div class="skill-group-title">Research & Communication</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Technical Communication
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Scientific Writing
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Public Presentation
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot"></div>Project Documentation
+                </div>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">Collaboration</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Interdisciplinary Teamwork
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Industry–Academia Collaboration
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot purple"></div>Research Mentoring
+                </div>
+              </div>
+            </div>
+            <div class="skill-group">
+              <div class="skill-group-title">Languages</div>
+              <div class="skill-items">
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>English (Fluent)
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>Urdu (Native)
+                </div>
+                <div class="skill-item">
+                  <div class="skill-dot amber"></div>Italian (Basic — A2)
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-num">06</div>
+        <h2 class="section-title">Awards & Honors</h2>
+        <p class="section-sub">Recognition for academic excellence and competitive achievement.</p>
+      </div>
+      <div class="awards-grid">
+
+        <div class="award-card">
+          <div class="award-medal gold">🏆</div>
+          <div>
+            <div class="award-title">Erasmus Mundus Scholarship</div>
+            <div class="award-org">European Commission — RealMaths Joint Master's Programme</div>
+            <div class="award-org" style="color:var(--text3); font-size:0.8rem">Awarded to top two students from
+              Pakistan for the prestigious RealMaths double degree programme spanning Italy and Sweden.</div>
+            <div class="award-date">April 2023 · Italy & Sweden</div>
+          </div>
+        </div>
+
+        <div class="award-card">
+          <div class="award-medal gold">🥇</div>
+          <div>
+            <div class="award-title">National Mathematical Olympiad — 1st Place</div>
+            <div class="award-org">National Level Mathematics Competition</div>
+            <div class="award-org" style="color:var(--text3); font-size:0.8rem">Secured first position in a
+              national-level mathematics competition, competing against top students from across Pakistan.</div>
+            <div class="award-date">May 2021 · Bahawalpur, Pakistan</div>
+          </div>
+        </div>
+
+        <div class="award-card">
+          <div class="award-medal blue">🥈</div>
+          <div>
+            <div class="award-title">CASPAM Mathematics Olympiad — Runner-Up</div>
+            <div class="award-org">Centre for Advanced Studies in Pure and Applied Mathematics</div>
+            <div class="award-org" style="color:var(--text3); font-size:0.8rem">Achieved second place in the regional
+              mathematics olympiad organized by CASPAM.</div>
+            <div class="award-date">April 2022 · Multan, Pakistan</div>
+          </div>
+        </div>
+
+        <div class="award-card">
+          <div class="award-medal green">🎓</div>
+          <div>
+            <div class="award-title">HEC Merit Scholarship</div>
+            <div class="award-org">Higher Education Commission, Pakistan</div>
+            <div class="award-org" style="color:var(--text3); font-size:0.8rem">Granted by the Higher Education
+              Commission for academic excellence in undergraduate studies at IUB.</div>
+            <div class="award-date">September 2019 · Pakistan</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCES -->
+  <section id="references">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-num">07</div>
+        <h2 class="section-title">References</h2>
+        <p class="section-sub">Academic and industry endorsements from collaborators and supervisors.</p>
+      </div>
+      <div class="refs-grid">
+
+        <div class="ref-card">
+          <div class="ref-avatar">AM</div>
+          <div class="ref-name">Prof. Dr. habil. Adrian Muntean</div>
+          <div class="ref-title">Thesis Supervisor</div>
+          <div class="ref-org">Department of Mathematics, Karlstad University, Sweden</div>
+          <div class="ref-quote">"Noman is a very pleasant person to work with, and has strong implementation skills in
+            Python and MATLAB which help him play efficiently with his more theoretical thoughts."</div>
+          <div class="ref-email">✉ <a href="mailto:adrian.muntean@kau.se"
+              style="color:var(--accent); text-decoration:none">adrian.muntean@kau.se</a></div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-avatar" style="background:linear-gradient(135deg,var(--accent2),#4c1d95)">EW</div>
+          <div class="ref-name">Prof. Dr. Eddie Wadbro</div>
+          <div class="ref-title">Examiner & Course Instructor</div>
+          <div class="ref-org">Department of Mathematics, Karlstad University, Sweden</div>
+          <div class="ref-quote">"He demonstrated eagerness to learn, strong motivation, and the ability to tackle
+            complex problems effectively. He has a proper engineering mindset."</div>
+          <div class="ref-email">✉ <a href="mailto:eddie.wadbro@kau.se"
+              style="color:var(--accent); text-decoration:none">eddie.wadbro@kau.se</a></div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-avatar" style="background:linear-gradient(135deg,var(--accent3),#b45309)">SF</div>
+          <div class="ref-name">Engr. Shehr Bano Fatima</div>
+          <div class="ref-title">Industrial Co-advisor</div>
+          <div class="ref-org">Simulation Department, Volvo Group, Eskilstuna, Sweden</div>
+          <div class="ref-quote">Co-supervised the master's thesis research, providing hands-on guidance in industrial
+            simulation, autonomous systems, and deployment of RL-based control policies.</div>
+          <div class="ref-email">✉ <a href="mailto:shehr.bano.fatima@volvo.com"
+              style="color:var(--accent); text-decoration:none">shehr.bano.fatima@volvo.com</a></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-text reveal">
+          <div class="section-num">08</div>
+          <h2>Let's Build Something <span>Remarkable</span></h2>
+          <p>I'm actively seeking PhD positions and research-oriented roles in applied mathematics, optimization,
+            simulation, and AI-driven modeling. Open to collaborations and opportunities worldwide.</p>
+          <div class="contact-links">
+            <a href="mailto:nomantabassum38@gmail.com" class="contact-link">
+              <div class="contact-link-icon">✉</div>
+              <div class="contact-link-text">
+                <div class="ttl">Email</div>
+                <div class="sub">nomantabassum38@gmail.com</div>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/m-noman-tabassum/" target="_blank" class="contact-link">
+              <div class="contact-link-icon">in</div>
+              <div class="contact-link-text">
+                <div class="ttl">LinkedIn</div>
+                <div class="sub">linkedin.com/in/m-noman-tabassum</div>
+              </div>
+            </a>
+
+          </div>
+        </div>
+        <div class="contact-right reveal">
+          <div class="open-badge">
+            <div class="open-badge-dot">
+              <div class="pulse-dot"></div>Open to opportunities
+            </div>
+            <h3>Seeking PhD & Research Roles</h3>
+            <p>Particularly interested in positions combining applied mathematics, machine learning, optimization, and
+              autonomous systems research. Eligible to work in Sweden and EU.</p>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;">
+            <div
+              style="font-family:'Roboto Mono',monospace;font-size:0.7rem;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px">
+              // Quick Facts</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.85rem">
+                <span style="color:var(--text2)">Nationality</span>
+                <span style="color:var(--text);font-family:'Roboto Mono',monospace;font-size:0.75rem">🇵🇰
+                  Pakistani</span>
+              </div>
+              <div style="height:1px;background:var(--border)"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.85rem">
+                <span style="color:var(--text2)">Based In</span>
+                <span style="color:var(--text);font-family:'Roboto Mono',monospace;font-size:0.75rem">🇸🇪 Göteborg,
+                  Sweden</span>
+              </div>
+              <div style="height:1px;background:var(--border)"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:0.85rem">
+                <span style="color:var(--text2)">Degree</span>
+                <span style="color:var(--text);font-family:'Roboto Mono',monospace;font-size:0.75rem">Double MSc
+                  (EMJMD)</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-copy">© 2025 Muhammad Noman Tabassum. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+
+
+
+
+    // Nav scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible'); observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal, .timeline-item, .exp-card, .project-card, .award-card, .ref-card').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Staggered animation for grid items
+    document.querySelectorAll('.project-card').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.08) + 's';
+    });
+    document.querySelectorAll('.award-card').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.1) + 's';
+    });
+    document.querySelectorAll('.ref-card').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.1) + 's';
+    });
+    document.querySelectorAll('.timeline-item').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.15) + 's';
+    });
+
+    // Skills tabs
+    function switchTab(event, id) {
+      document.querySelectorAll('.skill-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.skill-panel').forEach(p => p.classList.remove('active'));
+      event.target.closest('.skill-tab').classList.add('active');
+      document.getElementById('panel-' + id).classList.add('active');
+    }
+
+    // Mobile menu
+    function toggleMenu() {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = '';
+      } else {
+        links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:72px;left:0;right:0;background:var(--nav-bg);padding:24px;gap:16px;border-bottom:1px solid var(--border);z-index:99;backdrop-filter:blur(20px)';
+      }
+    }
+
+
+
+
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.querySelector('.nav-links').style.display = '';
+      });
+    });
+
+
+    // Dark / Light Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const moonIcon = document.getElementById('moon-icon');
+    const sunIcon = document.getElementById('sun-icon');
+
+    let currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+      currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('theme', currentTheme);
+      updateThemeIcon(currentTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+      } else {
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+      }
+    }
+
+    // Active nav link highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY + 100;
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        const link = document.querySelector('.nav-links a[href="#' + id + '"]');
+        if (link) {
+          if (scrollY >= top && scrollY < top + height) {
+            link.style.color = 'var(--accent)';
+          } else {
+            link.style.color = '';
+          }
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>
