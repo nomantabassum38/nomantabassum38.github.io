@@ -10,6 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@700;800;900&family=Roboto+Mono:wght@400;500&display=swap"
     rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
     :root {
       --bg: #ffffff;
@@ -1747,12 +1748,152 @@
       background: var(--surface2);
       color: var(--accent);
     }
+    
+    /* Scroll Progress Bar */
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 3px;
+      z-index: 1001;
+      background: transparent;
+    }
+
+    .progress-bar {
+      height: 3px;
+      background: var(--accent);
+      width: 0%;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* Cursor Glow */
+    #cursor-glow {
+      position: fixed;
+      top: -150px;
+      left: -150px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, rgba(37,99,235,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(0, 0);
+      mix-blend-mode: screen;
+      transition: transform 0.15s ease-out;
+    }
+    
+    [data-theme='light'] #cursor-glow {
+      background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, rgba(37,99,235,0) 70%);
+      mix-blend-mode: normal;
+    }
+    
+    /* Button Hover Enhancements */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .btn-primary:hover::after {
+      left: 100%;
+    }
+    
+    .skill-item:hover, .proj-tag:hover {
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+      color: var(--accent);
+    }
+    .skill-dot {
+      transition: transform 0.3s;
+    }
+    .skill-item:hover .skill-dot {
+      transform: scale(1.5);
+    }
+    
+    /* Ticker Marquee */
+    .ticker-wrap {
+      width: 100vw;
+      overflow: hidden;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      white-space: nowrap;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .ticker {
+      display: inline-block;
+      white-space: nowrap;
+      padding-right: 100%;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-name: ticker;
+      animation-duration: 35s;
+    }
+    .ticker-item {
+      display: inline-block;
+      padding: 0 3rem;
+      font-size: 1.1rem;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 500;
+      color: var(--text2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    .ticker-item:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+    @keyframes ticker {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-100%, 0, 0); }
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+    
+    /* Parallax Watermark */
+    .watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(6rem, 15vw, 15rem);
+      font-weight: 900;
+      color: var(--border);
+      opacity: 0.15;
+      z-index: 0;
+      pointer-events: none;
+      font-family: 'Playfair Display', serif;
+      white-space: nowrap;
+      user-select: none;
+    }
+    
+    .section-content { position: relative; z-index: 1; }
   </style>
 </head>
 
 <body>
 
-
+  <!-- Scroll Progress & Cursor Glow -->
+  <div class="progress-container">
+    <div class="progress-bar" id="myBar"></div>
+  </div>
+  <div id="cursor-glow"></div>
 
   <div class="gradient-bg">
     <div class="blob blob-1"></div>
@@ -1794,11 +1935,12 @@
   </nav>
 
   <!-- HERO -->
-  <section id="hero">
-    <div class="container">
+  <section id="hero" style="overflow: hidden;">
+    <div id="tsparticles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+    <div class="container section-content">
       <div class="hero-grid">
         <div class="hero-left">
-          <div class="hero-label">Applied Mathematician & AI Researcher</div>
+          <div class="hero-label"><span id="typed-text"></span></div>
           <h1 class="hero-name">
             <div class="line"><span>Muhammad</span></div>
             <div class="line"><span>Noman</span></div>
@@ -1849,9 +1991,33 @@
     </div>
   </section>
 
+  <!-- INFINITE TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <div class="ticker-item">Python</div>
+      <div class="ticker-item">Deep RL</div>
+      <div class="ticker-item">MATLAB</div>
+      <div class="ticker-item">PPO</div>
+      <div class="ticker-item">COMSOL</div>
+      <div class="ticker-item">FreeFem++</div>
+      <div class="ticker-item">C++</div>
+      <div class="ticker-item">ROS</div>
+      <!-- Duplicate for seamless scroll -->
+      <div class="ticker-item">Python</div>
+      <div class="ticker-item">Deep RL</div>
+      <div class="ticker-item">MATLAB</div>
+      <div class="ticker-item">PPO</div>
+      <div class="ticker-item">COMSOL</div>
+      <div class="ticker-item">FreeFem++</div>
+      <div class="ticker-item">C++</div>
+      <div class="ticker-item">ROS</div>
+    </div>
+  </div>
+
   <!-- ABOUT -->
-  <section id="about">
-    <div class="container">
+  <section id="about" style="position: relative; overflow: hidden;">
+    <div class="watermark">ABOUT</div>
+    <div class="container section-content">
       <div class="section-header reveal">
         <div class="section-num">01</div>
         <h2 class="section-title">About Me</h2>
@@ -1878,34 +2044,34 @@
                 Roles</span></li>
           </ul>
         </div>
-        <div class="interest-grid reveal">
+        <div class="interest-grid reveal section-content">
           <div class="interest-item">
-            <div class="interest-icon">🧮</div>
+            <div class="interest-icon"><i class='bx bx-math bx-tada-hover' ></i></div>
             <div class="interest-name">Optimization</div>
             <div class="interest-sub">Numerical & surrogate-based</div>
           </div>
           <div class="interest-item">
-            <div class="interest-icon">🤖</div>
+            <div class="interest-icon"><i class='bx bx-bot bx-tada-hover' ></i></div>
             <div class="interest-name">Deep RL & AI</div>
             <div class="interest-sub">Policy learning, PPO, control</div>
           </div>
           <div class="interest-item">
-            <div class="interest-icon">🌐</div>
+            <div class="interest-icon"><i class='bx bx-globe bx-spin-hover' ></i></div>
             <div class="interest-name">PDEs & FEM</div>
             <div class="interest-sub">FreeFem++, COMSOL</div>
           </div>
           <div class="interest-item">
-            <div class="interest-icon">📊</div>
+            <div class="interest-icon"><i class='bx bx-line-chart bx-flashing-hover' ></i></div>
             <div class="interest-name">Surrogate Modeling</div>
             <div class="interest-sub">LSTM, data-driven dynamics</div>
           </div>
           <div class="interest-item">
-            <div class="interest-icon">⚡</div>
+            <div class="interest-icon"><i class='bx bx-server bx-tada-hover' ></i></div>
             <div class="interest-name">HPC</div>
             <div class="interest-sub">MPI-parallelized computing</div>
           </div>
           <div class="interest-item">
-            <div class="interest-icon">🔬</div>
+            <div class="interest-icon"><i class='bx bx-brain bx-burst-hover' ></i></div>
             <div class="interest-name">LLMs & Deep Learning</div>
             <div class="interest-sub">Research, Kanazawa Univ.</div>
           </div>
@@ -1915,8 +2081,9 @@
   </section>
 
   <!-- EDUCATION -->
-  <section id="education">
-    <div class="container">
+  <section id="education" style="position: relative; overflow: hidden;">
+    <div class="watermark">EDUCATION</div>
+    <div class="container section-content">
       <div class="section-header reveal">
         <div class="section-num">02</div>
         <h2 class="section-title">Education</h2>
@@ -2024,8 +2191,9 @@
   </section>
 
   <!-- EXPERIENCE -->
-  <section id="experience">
-    <div class="container">
+  <section id="experience" style="position: relative; overflow: hidden;">
+    <div class="watermark">EXPERIENCE</div>
+    <div class="container section-content">
       <div class="section-header reveal">
         <div class="section-num">03</div>
         <h2 class="section-title">Experience</h2>
@@ -2120,8 +2288,9 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects">
-    <div class="container">
+  <section id="projects" style="position: relative; overflow: hidden;">
+    <div class="watermark">PROJECTS</div>
+    <div class="container section-content">
       <div class="section-header reveal">
         <div class="section-num">04</div>
         <h2 class="section-title">Projects</h2>
@@ -2219,8 +2388,9 @@
   </section>
 
   <!-- SKILLS -->
-  <section id="skills">
-    <div class="container">
+  <section id="skills" style="position: relative; overflow: hidden;">
+    <div class="watermark">SKILLS</div>
+    <div class="container section-content">
       <div class="section-header reveal">
         <div class="section-num">05</div>
         <h2 class="section-title">Skills & Tools</h2>
@@ -2494,8 +2664,9 @@
   </section>
 
   <!-- AWARDS -->
-  <section id="awards">
-    <div class="container">
+  <section id="awards" style="position: relative; overflow: hidden;">
+    <div class="watermark">AWARDS</div>
+    <div class="container section-content">
       <div class="section-header reveal">
         <div class="section-num">06</div>
         <h2 class="section-title">Awards & Honors</h2>
@@ -2552,8 +2723,9 @@
   </section>
 
   <!-- REFERENCES -->
-  <section id="references">
-    <div class="container">
+  <section id="references" style="position: relative; overflow: hidden;">
+    <div class="watermark">REFERENCES</div>
+    <div class="container section-content">
       <div class="section-header reveal">
         <div class="section-num">07</div>
         <h2 class="section-title">References</h2>
@@ -2599,8 +2771,9 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact">
-    <div class="container">
+  <section id="contact" style="position: relative; overflow: hidden;">
+    <div class="watermark">CONTACT</div>
+    <div class="container section-content">
       <div class="contact-grid">
         <div class="contact-text reveal">
           <div class="section-num">08</div>
@@ -2783,6 +2956,96 @@
       });
     });
 
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    });
+
+    // Cursor Glow
+    const cursorGlow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', (e) => {
+      cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+  </script>
+  <!-- VanillaTilt 3D Effect for Cards -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+  <script>
+    VanillaTilt.init(document.querySelectorAll(".project-card, .exp-card, .timeline-card, .hero-card, .award-card"), {
+      max: 5,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.05,
+    });
+  </script>
+  
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script>
+    if(document.getElementById('typed-text')){
+      new Typed('#typed-text', {
+        strings: ['Applied Mathematician', 'AI Researcher', 'Simulation Engineer', 'Data Scientist'],
+        typeSpeed: 50,
+        backSpeed: 30,
+        backDelay: 1500,
+        loop: true,
+        showCursor: true,
+        cursorChar: '|',
+      });
+    }
+  </script>
+  
+  <!-- tsParticles -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.0/tsparticles.bundle.min.js"></script>
+  <script>
+    tsParticles.load("tsparticles", {
+      fpsLimit: 60,
+      particles: {
+        number: {
+          value: 40,
+          density: { enable: true, value_area: 800 }
+        },
+        color: { value: "#2563eb" },
+        links: {
+          enable: true,
+          color: "#2563eb",
+          distance: 150,
+          opacity: 0.2,
+          width: 1
+        },
+        move: { enable: true, speed: 1.5, direction: "none", random: false, outModes: "bounce" },
+        size: { value: 3 },
+        opacity: { value: 0.3 }
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "grab" },
+          onClick: { enable: true, mode: "push" }
+        },
+        modes: {
+          grab: { distance: 140, links: { opacity: 0.5 } },
+          push: { quantity: 2 }
+        }
+      },
+      detectRetina: true
+    });
+  </script>
+
+  <!-- Magnetic Buttons -->
+  <script>
+    document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = `translate(0px, 0px)`;
+      });
+    });
   </script>
 </body>
 
