@@ -1900,13 +1900,9 @@
     .loader-math { animation: pulse 1.5s infinite alternate; }
     @keyframes pulse { from { opacity: 0.5; transform: scale(0.95); } to { opacity: 1; transform: scale(1.05); } }
 
-    /* Custom Cursor */
-    body { cursor: none; }
-    a, button, .project-card, .exp-card, .ticker-item { cursor: none !important; }
-    #cursor-dot { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 100000; transform: translate(-50%, -50%); transition: opacity 0.2s; }
-    #cursor-ring { position: fixed; top: 0; left: 0; width: 30px; height: 30px; border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; z-index: 100000; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, border-width 0.2s, background 0.2s; }
-    .cursor-hover-dot { opacity: 0; }
-    .cursor-hover-ring { width: 50px !important; height: 50px !important; border-width: 2px !important; background: rgba(37,99,235,0.1) !important; }
+    /* Cursor Glow */
+    body { cursor: auto; }
+    #cursor-glow { position: fixed; top: 0; left: 0; width: 400px; height: 400px; background: radial-gradient(circle closest-side, rgba(37, 99, 235, 0.15), transparent); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 9999; }
 
     /* Cinematic Modal */
     #project-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 99999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; padding: 5%; }
@@ -1928,8 +1924,7 @@
     .timeline-path-bg { position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: var(--border); z-index: 0; }
     .timeline-path-fill { position: absolute; top: 0; left: 0; width: 2px; background: var(--accent); z-index: 1; height: 0%; box-shadow: 0 0 10px var(--accent); transition: height 0.15s ease-out; }
 
-    /* ThreeJS Container */
-    #math-canvas-container { width: 100%; height: 350px; border-radius: 8px; overflow: hidden; background: #0a0a0f; border: 1px solid var(--border); margin-top: 1.5rem; }
+
   </style>
 </head>
 
@@ -1940,9 +1935,8 @@
     <div class="loader-math">∀x ∈ ℝ : ∇·E = ρ / ε₀ ... Initializing Models ...</div>
   </div>
 
-  <!-- Custom Cursor Systems -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
+  <!-- Cursor Glow -->
+  <div id="cursor-glow"></div>
   
   <!-- Project Modal Overlay -->
   <div id="project-modal" onclick="if(event.target === this) closeModal()">
@@ -2111,7 +2105,6 @@
             <li><span class="lbl">Status</span><span class="val" style="color:var(--accent)">● Open to PhD & Research
                 Roles</span></li>
           </ul>
-          <div id="math-canvas-container" class="reveal"></div>
         </div>
         <div class="interest-grid reveal section-content">
           <div class="interest-item">
@@ -3154,38 +3147,12 @@
       }, 1000); // Allow math equations to show briefly
     });
 
-    /* CUSTOM GEOMETRIC CURSOR */
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorRing = document.getElementById('cursor-ring');
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-    
+    /* CURSOR GLOW */
+    const cursorGlow = document.getElementById('cursor-glow');
     document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
-    });
-
-    function animateRing() {
-      // Lerp for smooth lag effect
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
-      cursorRing.style.left = `${ringX}px`;
-      cursorRing.style.top = `${ringY}px`;
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
-
-    document.querySelectorAll('a, button, .project-card, .exp-card, .ticker-item').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursorDot.classList.add('cursor-hover-dot');
-        cursorRing.classList.add('cursor-hover-ring');
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorDot.classList.remove('cursor-hover-dot');
-        cursorRing.classList.remove('cursor-hover-ring');
-      });
+      if(cursorGlow) {
+        cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      }
     });
 
     /* PROJECT MODALS */
@@ -3255,64 +3222,7 @@
       }
     });
 
-    /* THREE.JS INTERACTIVE MATHEMATICAL GRAPH */
-    const canvasContainer = document.getElementById('math-canvas-container');
-    if(canvasContainer) {
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-      canvasContainer.appendChild(renderer.domElement);
 
-      // Create a nice Hyperbolic Paraboloid wireframe (surface of z = x^2 - y^2)
-      const geometry = new THREE.ParametricGeometry(function(u, v, target) {
-        const x = (u - 0.5) * 10;
-        const y = (v - 0.5) * 10;
-        const z = (x*x - y*y) * 0.1;
-        target.set(x, y, z);
-      }, 20, 20);
-
-      const material = new THREE.MeshBasicMaterial({ color: 0x2563eb, wireframe: true, transparent: true, opacity: 0.8 });
-      const mathMesh = new THREE.Mesh(geometry, material);
-      scene.add(mathMesh);
-      camera.position.z = 15;
-      camera.position.y = 5;
-      camera.lookAt(0,0,0);
-
-      let isDragging = false;
-      let previousMousePosition = { x: 0, y: 0 };
-
-      // Make it interactive to dragging
-      canvasContainer.addEventListener('mousedown', () => isDragging = true);
-      window.addEventListener('mouseup', () => isDragging = false);
-      window.addEventListener('mousemove', (e) => {
-        if(isDragging) {
-          const deltaX = e.clientX - previousMousePosition.x;
-          const deltaY = e.clientY - previousMousePosition.y;
-          mathMesh.rotation.y += deltaX * 0.01;
-          mathMesh.rotation.x += deltaY * 0.01;
-        }
-        previousMousePosition = { x: e.clientX, y: e.clientY };
-      });
-
-      // Auto-rotation
-      function animateThree() {
-        requestAnimationFrame(animateThree);
-        if(!isDragging) {
-          mathMesh.rotation.y += 0.003;
-          mathMesh.rotation.z += 0.001;
-        }
-        renderer.render(scene, camera);
-      }
-      animateThree();
-
-      // Handle Resize
-      window.addEventListener('resize', () => {
-        camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-      });
-    }
 
   </script>
 </body>
