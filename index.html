@@ -1895,10 +1895,6 @@
     
     .section-content { position: relative; z-index: 1; }
 
-    /* Preloader */
-    #preloader { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0a0a0f; z-index: 999999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease-out, visibility 0.8s; color: #fff; font-family: 'Roboto Mono', monospace; font-size: 1.2rem; }
-    .loader-math { animation: pulse 1.5s infinite alternate; }
-    @keyframes pulse { from { opacity: 0.5; transform: scale(0.95); } to { opacity: 1; transform: scale(1.05); } }
 
     /* Cursor Glow */
     body { cursor: auto; }
@@ -1930,10 +1926,7 @@
 
 <body>
 
-  <!-- Preloader -->
-  <div id="preloader">
-    <div class="loader-math">∀x ∈ ℝ : ∇·E = ρ / ε₀ ... Initializing Models ...</div>
-  </div>
+
 
   <!-- Cursor Glow -->
   <div id="cursor-glow"></div>
@@ -3133,20 +3126,8 @@
     });
   </script>
 
-  <!-- ThreeJS Core -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-
   <!-- Top 1% Interactive Logic Execution -->
   <script>
-    /* PRELOADER */
-    window.addEventListener('load', () => {
-      const preloader = document.getElementById('preloader');
-      setTimeout(() => {
-        preloader.style.opacity = '0';
-        preloader.style.visibility = 'hidden';
-      }, 1000); // Allow math equations to show briefly
-    });
-
     /* CURSOR GLOW */
     const cursorGlow = document.getElementById('cursor-glow');
     document.addEventListener('mousemove', (e) => {
