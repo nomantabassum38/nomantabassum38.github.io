@@ -1825,39 +1825,51 @@
       background: var(--surface2);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 24px 0;
-      white-space: nowrap;
-      box-sizing: border-box;
-      position: relative;
+      padding: 30px 0;
+      display: flex;
     }
-    .ticker {
-      display: inline-block;
-      white-space: nowrap;
-      padding-right: 100%;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
-      animation-name: ticker;
-      animation-duration: 35s;
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: scrollMarquee 25s linear infinite;
+    }
+    .ticker-wrap:hover .ticker-track {
+      animation-play-state: paused;
+    }
+    .ticker-content {
+      display: flex;
+      gap: 3rem;
+      padding: 0 1.5rem;
     }
     .ticker-item {
-      display: inline-block;
-      padding: 0 3rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
       font-size: 1.1rem;
       font-family: 'Roboto Mono', monospace;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text2);
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      opacity: 0.8;
-      transition: opacity 0.3s;
+      padding: 12px 28px;
+      border-radius: 50px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      cursor: crosshair;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .ticker-item:hover {
-      opacity: 1;
-      color: var(--accent);
+      color: #ffffff;
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+      transform: translateY(-5px) scale(1.08);
+      z-index: 10;
     }
-    @keyframes ticker {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-100%, 0, 0); }
+    @keyframes scrollMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); } 
     }
     
     /* Custom Scrollbar */
@@ -1993,24 +2005,29 @@
 
   <!-- INFINITE TICKER -->
   <div class="ticker-wrap">
-    <div class="ticker">
-      <div class="ticker-item">Python</div>
-      <div class="ticker-item">Deep RL</div>
-      <div class="ticker-item">MATLAB</div>
-      <div class="ticker-item">PPO</div>
-      <div class="ticker-item">COMSOL</div>
-      <div class="ticker-item">FreeFem++</div>
-      <div class="ticker-item">C++</div>
-      <div class="ticker-item">ROS</div>
-      <!-- Duplicate for seamless scroll -->
-      <div class="ticker-item">Python</div>
-      <div class="ticker-item">Deep RL</div>
-      <div class="ticker-item">MATLAB</div>
-      <div class="ticker-item">PPO</div>
-      <div class="ticker-item">COMSOL</div>
-      <div class="ticker-item">FreeFem++</div>
-      <div class="ticker-item">C++</div>
-      <div class="ticker-item">ROS</div>
+    <div class="ticker-track">
+      <!-- First Block -->
+      <div class="ticker-content">
+        <div class="ticker-item"><i class='bx bxl-python'></i> Python</div>
+        <div class="ticker-item"><i class='bx bx-brain'></i> Deep RL</div>
+        <div class="ticker-item"><i class='bx bx-cube-alt'></i> MATLAB</div>
+        <div class="ticker-item"><i class='bx bx-target-lock'></i> PPO</div>
+        <div class="ticker-item"><i class='bx bx-math'></i> COMSOL</div>
+        <div class="ticker-item"><i class='bx bx-network-chart'></i> FreeFem++</div>
+        <div class="ticker-item"><i class='bx bxl-c-plus-plus'></i> C++</div>
+        <div class="ticker-item"><i class='bx bx-bot'></i> ROS</div>
+      </div>
+      <!-- Duplicate Block for Seamless Loop -->
+      <div class="ticker-content">
+        <div class="ticker-item"><i class='bx bxl-python'></i> Python</div>
+        <div class="ticker-item"><i class='bx bx-brain'></i> Deep RL</div>
+        <div class="ticker-item"><i class='bx bx-cube-alt'></i> MATLAB</div>
+        <div class="ticker-item"><i class='bx bx-target-lock'></i> PPO</div>
+        <div class="ticker-item"><i class='bx bx-math'></i> COMSOL</div>
+        <div class="ticker-item"><i class='bx bx-network-chart'></i> FreeFem++</div>
+        <div class="ticker-item"><i class='bx bxl-c-plus-plus'></i> C++</div>
+        <div class="ticker-item"><i class='bx bx-bot'></i> ROS</div>
+      </div>
     </div>
   </div>
 
