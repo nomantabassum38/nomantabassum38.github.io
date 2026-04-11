@@ -1894,16 +1894,69 @@
     }
     
     .section-content { position: relative; z-index: 1; }
+
+    /* Preloader */
+    #preloader { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0a0a0f; z-index: 999999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease-out, visibility 0.8s; color: #fff; font-family: 'Roboto Mono', monospace; font-size: 1.2rem; }
+    .loader-math { animation: pulse 1.5s infinite alternate; }
+    @keyframes pulse { from { opacity: 0.5; transform: scale(0.95); } to { opacity: 1; transform: scale(1.05); } }
+
+    /* Custom Cursor */
+    body { cursor: none; }
+    a, button, .project-card, .exp-card, .ticker-item { cursor: none !important; }
+    #cursor-dot { position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 100000; transform: translate(-50%, -50%); transition: opacity 0.2s; }
+    #cursor-ring { position: fixed; top: 0; left: 0; width: 30px; height: 30px; border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; z-index: 100000; transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s, border-width 0.2s, background 0.2s; }
+    .cursor-hover-dot { opacity: 0; }
+    .cursor-hover-ring { width: 50px !important; height: 50px !important; border-width: 2px !important; background: rgba(37,99,235,0.1) !important; }
+
+    /* Cinematic Modal */
+    #project-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 99999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; padding: 5%; }
+    #project-modal.active { display: flex; opacity: 1; }
+    .modal-content { background: var(--surface); padding: 40px; border-radius: 12px; max-width: 800px; width: 100%; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.3); transform: translateY(30px); transition: transform 0.4s ease; max-height: 90vh; overflow-y: auto; position: relative; }
+    #project-modal.active .modal-content { transform: translateY(0); }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 1.5rem; color: var(--text); cursor: none !important; }
+
+    /* Terminal Skin */
+    .terminal-window { background: #1e1e1e; border-radius: 8px; border: 1px solid #333; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-family: 'Roboto Mono', monospace; font-size: 0.9rem; color: #a9b7c6; margin-top: 30px; }
+    .terminal-header { background: #2d2d2d; padding: 10px 15px; display: flex; gap: 8px; align-items: center; }
+    .terminal-btn { width: 12px; height: 12px; border-radius: 50%; }
+    .tb-1 { background: #ff5f56; } .tb-2 { background: #ffbd2e; } .tb-3 { background: #27c93f; }
+    .terminal-body { padding: 20px; min-height: 250px; }
+    .terminal-prompt { color: #50fa7b; } 
+
+    /* SVG Timeline */
+    .timeline { position: relative; padding-left: 30px; border-left: none; }
+    .timeline-path-bg { position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: var(--border); z-index: 0; }
+    .timeline-path-fill { position: absolute; top: 0; left: 0; width: 2px; background: var(--accent); z-index: 1; height: 0%; box-shadow: 0 0 10px var(--accent); transition: height 0.15s ease-out; }
+
+    /* ThreeJS Container */
+    #math-canvas-container { width: 100%; height: 350px; border-radius: 8px; overflow: hidden; background: #0a0a0f; border: 1px solid var(--border); margin-top: 1.5rem; }
   </style>
 </head>
 
 <body>
 
-  <!-- Scroll Progress & Cursor Glow -->
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader-math">∀x ∈ ℝ : ∇·E = ρ / ε₀ ... Initializing Models ...</div>
+  </div>
+
+  <!-- Custom Cursor Systems -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  
+  <!-- Project Modal Overlay -->
+  <div id="project-modal" onclick="if(event.target === this) closeModal()">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">✖</button>
+      <h2 id="modal-title" style="margin-bottom: 20px;"></h2>
+      <div id="modal-desc" style="line-height: 1.8;"></div>
+    </div>
+  </div>
+
+  <!-- Scroll Progress -->
   <div class="progress-container">
     <div class="progress-bar" id="myBar"></div>
   </div>
-  <div id="cursor-glow"></div>
 
   <div class="gradient-bg">
     <div class="blob blob-1"></div>
@@ -2058,6 +2111,7 @@
             <li><span class="lbl">Status</span><span class="val" style="color:var(--accent)">● Open to PhD & Research
                 Roles</span></li>
           </ul>
+          <div id="math-canvas-container" class="reveal"></div>
         </div>
         <div class="interest-grid reveal section-content">
           <div class="interest-item">
@@ -2105,7 +2159,7 @@
         <p class="section-sub">A rigorous academic journey across four countries — Pakistan, Italy, Sweden, and Japan.</p>
       </div>
       <div class="timeline">
-
+        <div class="timeline-path-bg"></div><div class="timeline-path-fill"></div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-period">Jul 2025 – Aug 2025</div>
@@ -2675,6 +2729,21 @@
 
         </div>
       </div>
+      
+      <!-- Terminal Window Interaction -->
+      <div class="terminal-window reveal">
+        <div class="terminal-header">
+          <div class="terminal-btn tb-1"></div>
+          <div class="terminal-btn tb-2"></div>
+          <div class="terminal-btn tb-3"></div>
+          <div style="margin-left: 10px; opacity: 0.6;">ppo_training.py</div>
+        </div>
+        <div class="terminal-body" id="terminal-body-ref">
+          <span class="terminal-prompt">nomantabassum@macbook-pro ~ % </span> python ppo_training.py<br>
+          <span id="terminal-typed"></span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -3069,6 +3138,182 @@
         btn.style.transform = `translate(0px, 0px)`;
       });
     });
+  </script>
+
+  <!-- ThreeJS Core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+  <!-- Top 1% Interactive Logic Execution -->
+  <script>
+    /* PRELOADER */
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      setTimeout(() => {
+        preloader.style.opacity = '0';
+        preloader.style.visibility = 'hidden';
+      }, 1000); // Allow math equations to show briefly
+    });
+
+    /* CUSTOM GEOMETRIC CURSOR */
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
+    });
+
+    function animateRing() {
+      // Lerp for smooth lag effect
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top = `${ringY}px`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .project-card, .exp-card, .ticker-item').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorDot.classList.add('cursor-hover-dot');
+        cursorRing.classList.add('cursor-hover-ring');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorDot.classList.remove('cursor-hover-dot');
+        cursorRing.classList.remove('cursor-hover-ring');
+      });
+    });
+
+    /* PROJECT MODALS */
+    const projectModal = document.getElementById('project-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', (e) => {
+        // Prevent clicking links inside card from opening modal
+        if(e.target.closest('a')) return;
+        
+        projectModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // lock scroll
+        
+        // Grab content dynamically
+        const title = card.querySelector('.proj-title').innerText;
+        const desc = card.querySelector('.proj-desc').innerHTML;
+        const tags = card.querySelector('.proj-tags').innerHTML;
+        
+        modalTitle.innerText = title;
+        modalDesc.innerHTML = `<div style="font-size:1.1rem; color:var(--text2)">${desc}</div><br><div class="proj-tags">${tags}</div><br><p style="color:var(--text3); font-style:italic">This represents an expanded view showing deeper methodologies utilized during the research timeframe.</p>`;
+      });
+    });
+
+    function closeModal() {
+      projectModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    /* TERMINAL TYPING LOGIC */
+    let terminalStarted = false;
+    const terminalBody = document.getElementById('terminal-body-ref');
+    
+    const termObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !terminalStarted) {
+          terminalStarted = true;
+          new Typed('#terminal-typed', {
+            strings: [
+              "import stable_baselines3 as sb3\nfrom stable_baselines3 import PPO\n\n<span style='color:#ffbd2e'># Initializing surrogate environment</span>\nenv = ExcavatorEnv(surrogate_model='LSTM')\n\n<span style='color:#ffbd2e'># Training Policy</span>\nmodel = PPO('MlpPolicy', env, verbose=1)\nmodel.learn(total_timesteps=1000000)\n\n<span style='color:#50fa7b'>[SUCCESS]</span> Policy Optimized. Trajectory Efficiency +42%"
+            ],
+            typeSpeed: 10,
+            showCursor: true,
+            cursorChar: '█',
+            onComplete: (self) => { setTimeout(() => self.cursor.style.animation = 'none', 3000) }
+          });
+        }
+      });
+    });
+    if(terminalBody) termObserver.observe(terminalBody);
+    
+    /* SVG TIMELINE DRAWING */
+    window.addEventListener('scroll', () => {
+      const timeline = document.querySelector('.timeline');
+      const timelineFill = document.querySelector('.timeline-path-fill');
+      if(timeline && timelineFill) {
+        // Calculate how far down the timeline parent block we have scrolled
+        const rect = timeline.getBoundingClientRect();
+        // If top of timeline is below middle of screen, 0%
+        // If bottom of timeline is above middle of screen, 100%
+        const windowHalf = window.innerHeight / 2;
+        let percentage = (windowHalf - rect.top) / rect.height;
+        percentage = Math.max(0, Math.min(1, percentage));
+        timelineFill.style.height = `${percentage * 100}%`;
+      }
+    });
+
+    /* THREE.JS INTERACTIVE MATHEMATICAL GRAPH */
+    const canvasContainer = document.getElementById('math-canvas-container');
+    if(canvasContainer) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+      canvasContainer.appendChild(renderer.domElement);
+
+      // Create a nice Hyperbolic Paraboloid wireframe (surface of z = x^2 - y^2)
+      const geometry = new THREE.ParametricGeometry(function(u, v, target) {
+        const x = (u - 0.5) * 10;
+        const y = (v - 0.5) * 10;
+        const z = (x*x - y*y) * 0.1;
+        target.set(x, y, z);
+      }, 20, 20);
+
+      const material = new THREE.MeshBasicMaterial({ color: 0x2563eb, wireframe: true, transparent: true, opacity: 0.8 });
+      const mathMesh = new THREE.Mesh(geometry, material);
+      scene.add(mathMesh);
+      camera.position.z = 15;
+      camera.position.y = 5;
+      camera.lookAt(0,0,0);
+
+      let isDragging = false;
+      let previousMousePosition = { x: 0, y: 0 };
+
+      // Make it interactive to dragging
+      canvasContainer.addEventListener('mousedown', () => isDragging = true);
+      window.addEventListener('mouseup', () => isDragging = false);
+      window.addEventListener('mousemove', (e) => {
+        if(isDragging) {
+          const deltaX = e.clientX - previousMousePosition.x;
+          const deltaY = e.clientY - previousMousePosition.y;
+          mathMesh.rotation.y += deltaX * 0.01;
+          mathMesh.rotation.x += deltaY * 0.01;
+        }
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+      });
+
+      // Auto-rotation
+      function animateThree() {
+        requestAnimationFrame(animateThree);
+        if(!isDragging) {
+          mathMesh.rotation.y += 0.003;
+          mathMesh.rotation.z += 0.001;
+        }
+        renderer.render(scene, camera);
+      }
+      animateThree();
+
+      // Handle Resize
+      window.addEventListener('resize', () => {
+        camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+      });
+    }
+
   </script>
 </body>
 
